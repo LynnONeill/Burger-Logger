@@ -1,28 +1,42 @@
-{{!-- Setup the `index.handlebars` to have the template that Handlebars can render onto.
+<div class="container">
 
-     * Create a button in `index.handlebars` that will submit the user input into the database. --}}
-
-<img src="../public/assets/img/burger.png" alt="burger"></img>
-
-<h1>Eat Da Burger!</h1>
-
-<form class="create-form">
-
-    <div class="form-group"></div>
-    <input type="text" id="burger-add" name="burger-name"></input>
-    <button id="submit">Submit</button>
-    <label for="burger-add">Enter a burger you want to eat and click the Submit button!</label>
-
-
-    <div class="added-burgers">
-     
-        <ul>
-            {{#each burger}}
-                <li>{{this.name}}</li>
-                <button class="devour">Devour</button>
-            {{/each}}
-        </ul>
-
+    <div class="row col-12" id="header">
+        <img class="mx-auto" src="../assets/img/burger.png" alt="burger" height="115px" width="115px"></img>
     </div>
 
-</form>
+    <div class="header mx-auto row">
+        <h1 class="mx-auto text-danger">Eat Da Burger!</h1>
+    </div>
+
+    <div class="row ">
+        <div class="col-4 mx-auto uneaten-burgers">
+            <h4>Order Up!</h4>
+            <ul>
+                {{#each burger}}
+                {{#unless eaten}}
+                <button data-id="{{this.burger_id}}" data-name="{{this.name}}" class="devour">Devour</button>
+                <p class="burger-name">{{this.id}}{{this.name}}<p>
+                {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-4 mx-auto devoured-burgers">
+            <h4 id="devoured">Devoured!</h4>
+            <ul>
+                {{#each burger}}
+                {{#if eaten}}
+                <p>{{this.name}}</p>
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <div id="enter-burgers">
+            <input class="row col-4 mx-auto" style="height: 45px" type="text" id="burger-add" name="burger-name"></input>
+            <button class="row my-4 bg-primary mx-auto" id="submit">Submit</button>
+            <p class="message mx-auto">Enter a burger you want to eat and click submit!</p>
+        </div>
+    </div>
+</div>

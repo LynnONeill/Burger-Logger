@@ -29,6 +29,27 @@ $(document).ready(function () {
     $(".devour").on("click", function (event) {
         event.preventDefault();
         console.log("devour click works");
+        let burgerToDevourID = $(this).data("id");
+        let burgerToDevour = $(this).data("name");
+        console.log(burgerToDevourID);
+        console.log(burgerToDevour);
+
+        let newStatus = {
+            eaten: true,
+        };
+        console.log("This logs the newStatus: ");
+        console.log(newStatus);
+
+        $.ajax("/api/burgers/" + burgerToDevourID, {
+            type: "PUT",
+            data: newStatus
+        }).then(
+            function() {
+                console.log("Changed eaten status to: " + newStatus);
+                location.reload();
+            }
+        )
+        
     });
 
 

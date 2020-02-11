@@ -29,6 +29,9 @@ function objToSql(ob) {
         }
         arr.push(key + "=" + value);
     }
+
+    console.log('ARR', arr);
+    return(arr);
 }
 
 let orm = {
@@ -65,10 +68,11 @@ let orm = {
 
         queryString += " SET ";
         queryString += objToSql(objColVals);
+        console.log('OBJ FUnc',objToSql(objColVals))
         queryString += " WHERE ";
         queryString += condition;
 
-        console.log(queryString);
+        console.log('THIS IS THE QUERYSTRING', queryString);
         connection.query(queryString, function(err, result) {
             if (err) {
                 throw err;

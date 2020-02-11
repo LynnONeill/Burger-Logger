@@ -5,8 +5,8 @@ let router = express.Router();
 let burger = require("../models/burger.js")
 
 
-router.get("/", function(req, res) {
-    burger.selectAll(function(data) {
+router.get("/", function (req, res) {
+    burger.selectAll(function (data) {
         let hbsObject = {
             burger: data
         };
@@ -17,16 +17,32 @@ router.get("/", function(req, res) {
     })
 });
 
-router.post("/api/burgers/", function(req, res) {
+router.post("/api/burgers/", function (req, res) {
     burger.insertOne([
         "name", "eaten"
     ], [
         req.body.name, req.body.eaten
-    ], function(result) {
-        res.json({burger_id: result.insertID})
+    ], function (result) {
+        res.json({ burger_id: result.insertID })
     })
-        
-    })
+
+});
+
+router.put("/api/burgers/:id", function(req, res) {
+    let condition = "burger_id = " + req.params.id;
+    console.log('GETTTING HIT HERE')
+    // console.log("condition", condition);
+
+    burger.updateOne({
+        eaten: req.body.eaten
+    }, condition, function(result) {
+        if (result.changedRows == 0) {
+            return res.status(404).end();
+        } else {
+            res.status(200).end();
+        }
+    });
+});
 
 
 
